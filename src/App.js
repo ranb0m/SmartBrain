@@ -5,7 +5,6 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import NavBar from './components/NavBar/NavBar';
-import ParticlesBg from 'particles-bg';
 import tachyons from 'tachyons';
 
 const initializeClarifaiRequestOptions = (detectUrl) => {
@@ -96,9 +95,7 @@ function App() {
 
   return (
     <>
-    <div className='particle-container'> 
-    <ParticlesBg type='cobweb' bg={true} />
-    </div>
+    <div className="full-page-container">
     <div className='content-container content'>
     <NavBar route={route} onRouteChange={onRouteChange} />
     {(route === 'sign-in' || route === 'registration') ? <Authentication  onRouteChange={onRouteChange} route={route}/> :
@@ -108,6 +105,7 @@ function App() {
     <FaceRecognition boxes={boxes} imageSrc={detectUrl} />
     </>
     }
+    </div>
     </div>
     </>
     

@@ -20,7 +20,7 @@ export default function FaceRecognition({ imageSrc, boxes }) {
         <img id="fimage"
              alt="url_contents" 
              src={imageSrc}
-             width="500px"
+             width="250vw"
              height="auto" />
         <FaceBoxes boxes={boxes} />
         </div>
