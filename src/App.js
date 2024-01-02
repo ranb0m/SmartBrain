@@ -53,6 +53,26 @@ function App() {
   const [detectUrl, setDetectUrl] = useState('')
   const [boxes, setBoxes] = useState([])
   const [route, setRoute] = useState('sign-in')
+  const [user, setUser] = useState({
+    id: '',
+    name: '',
+    email: '',
+    password: '',
+    entries: 0,
+    joined: ''
+  })
+
+  const loadUser = (data) => {
+    setUser({
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      entries: data.entries,
+      joined: data.joined
+    });
+  }
+
 
   const faceDetection = (data) => {
     const regions = data.outputs[0].data.regions;
@@ -85,8 +105,26 @@ function App() {
   const onButtonSubmit = () => {
     fetch("https://api.clarifai.com/v2/models/" + 'face-detection' + "/outputs", initializeClarifaiRequestOptions(detectUrl))
         .then(response => response.json())
-        .then(resp => displayFaceboxes(faceDetection(resp)))
+        .then(resp => {
+          if (resp) {
+            fetch("http://localhost:3000/image", {
+              method: "put",
+              headers: {'Content-Type': "application/json"},
+              body: JSON.stringify({
+                id: user.id
+              })
+            })
+            .then(response => response.json())
+            .then(data => {
+              if (data) {
+                loadUser(data)
+              }
+            })
+          }
+          displayFaceboxes(faceDetection(resp))
+        })
         .catch(err => console.log(err))
+    
   }
 
   const onRouteChange = (input) => {
@@ -98,9 +136,9 @@ function App() {
     <div className="full-page-container">
     <div className='content-container content'>
     <NavBar route={route} onRouteChange={onRouteChange} />
-    {(route === 'sign-in' || route === 'registration') ? <Authentication  onRouteChange={onRouteChange} route={route}/> :
+    {(route === 'sign-in' || route === 'registration') ? <Authentication  onRouteChange={onRouteChange} route={route} loadUser={loadUser} user={user} /> :
     <>
-    <Rank />
+    <Rank user={user} />
     <ImageLinkForm detectUrl={detectUrl} handleOnChange={handleOnChange} onButtonSubmit={onButtonSubmit}/>
     <FaceRecognition boxes={boxes} imageSrc={detectUrl} />
     </>

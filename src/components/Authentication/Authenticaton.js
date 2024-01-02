@@ -1,7 +1,7 @@
 import userEvent from "@testing-library/user-event";
 import React, {useState} from "react";
 
-export default function Authentication({ onRouteChange, route }) {
+export default function Authentication({ onRouteChange, route, loadUser, user }) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,12 +28,14 @@ export default function Authentication({ onRouteChange, route }) {
         password: password
       })
     })
-    .then(response => {
-      if(response.ok) {
-        // Reset the input fields after successful registration
+    .then(response => response.json())
+    .then(user => {
+      if(user) {
+        loadUser(user)
         onRouteChange('sign-in');
       }
     })
+    .catch(console.log)
   }
   
    const onSignin = () => {
@@ -47,7 +49,8 @@ export default function Authentication({ onRouteChange, route }) {
       })
       .then(response => response.json())
       .then(data => {
-        if (data === `wp you're logged matey`) {
+        if (data) {
+          loadUser(data);
           onRouteChange('home');
         }
         else console.log('error', data)
