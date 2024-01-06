@@ -5,7 +5,7 @@ export default function ImageLinkForm({ detectUrl, handleOnChange, onButtonSubmi
     
     return (
         <div>
-            <p className="bitch f3">
+            <p className="description f3">
                 {'This Magic Brain will detect faces in your pictures. Give it a try.'}
             </p>
             <div>

@@ -119,6 +119,9 @@ function App() {
               if (data) {
                 loadUser(data)
               }
+              else {
+                console.log('error', data)
+              }
             })
           }
           displayFaceboxes(faceDetection(resp))

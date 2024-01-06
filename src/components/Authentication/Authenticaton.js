@@ -1,21 +1,27 @@
 import userEvent from "@testing-library/user-event";
 import React, {useState} from "react";
 
-export default function Authentication({ onRouteChange, route, loadUser, user }) {
+export default function Authentication({ onRouteChange, route, loadUser }) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const formReset = () => {
+    setName('');
+    setEmail('');
+    setPassword('');
+  }
+
   const onNameChange = (e) => {
-    setName(e.target.value)
+    setName(e.target.value);
   }
 
   const onEmailChange = (e) => {
-    setEmail(e.target.value)
+    setEmail(e.target.value);
   }
 
   const onPasswordChange = (e) => {
-    setPassword(e.target.value)
+    setPassword(e.target.value);
   }
 
   const onRegister = () => {
@@ -31,11 +37,13 @@ export default function Authentication({ onRouteChange, route, loadUser, user })
     .then(response => response.json())
     .then(user => {
       if(user) {
-        loadUser(user)
+        loadUser(user);
         onRouteChange('sign-in');
       }
+      else console.log('error', user)
     })
     .catch(console.log)
+    formReset();
   }
   
    const onSignin = () => {
@@ -49,7 +57,7 @@ export default function Authentication({ onRouteChange, route, loadUser, user })
       })
       .then(response => response.json())
       .then(data => {
-        if (data) {
+        if (data !== 'error logging in') {
           loadUser(data);
           onRouteChange('home');
         }
@@ -72,6 +80,7 @@ export default function Authentication({ onRouteChange, route, loadUser, user })
                 type="text" 
                 name="user"  
                 id="user"
+                value={name}
                 onChange={onNameChange} />
             </div>}
             <div className="mt3">
@@ -81,6 +90,7 @@ export default function Authentication({ onRouteChange, route, loadUser, user })
                 type="email" 
                 name="email-address"  
                 id="email-address"
+                value={email}
                 onChange={onEmailChange} />
             </div>
             <div className="mv3">
@@ -90,6 +100,7 @@ export default function Authentication({ onRouteChange, route, loadUser, user })
                 type="password" 
                 name="password"  
                 id="password"
+                value={password}
                 onChange={onPasswordChange} />
             </div>
           </fieldset>
@@ -109,6 +120,7 @@ export default function Authentication({ onRouteChange, route, loadUser, user })
           <div className="lh-copy mt3">
             {route === 'sign-in' && <a onClick={() => {
               onRouteChange('registration');
+              formReset();
               }
             } className="f6 link dim black db pointer">Register
             </a>
