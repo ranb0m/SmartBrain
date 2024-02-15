@@ -119,15 +119,11 @@ function App() {
               if (data) {
                 loadUser(data)
               }
-              else {
-                console.log('error', data)
-              }
-            })
+            }).catch(console.error)
+            displayFaceboxes(faceDetection(resp))
           }
-          displayFaceboxes(faceDetection(resp))
         })
         .catch(err => console.log(err))
-    
   }
 
   const onRouteChange = (input) => {

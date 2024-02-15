@@ -8,12 +8,11 @@ export default function NavBar({ onRouteChange, route }) {
             </button>
             <div className="dtc v-mid w-75 tr">
                 <p onClick={() => {
-                    if (route === 'home') {
-                    onRouteChange('sign-in')
-                    }
-                    else {
-                    onRouteChange('sign-in')
-                    }
+                        if (route === 'home') {
+                        onRouteChange('sign-in')
+                        } else {
+                        onRouteChange('sign-in')
+                        }
                     }
                 } 
                 className="link pointer dim dark-gray f6 f5-ns dib mr3 mr4-ns" >
@@ -25,6 +24,5 @@ export default function NavBar({ onRouteChange, route }) {
                 } className="link pointer dim dark-gray f6 f5-ns dib mr3 mr4-ns" >Register</p>}
             </div>
         </nav>
-
     )
 };

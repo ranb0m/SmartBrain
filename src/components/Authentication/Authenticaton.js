@@ -63,7 +63,7 @@ export default function Authentication({ onRouteChange, route, loadUser }) {
         }
         else console.log('error', data)
       })
-      .catch(console.log)
+      .catch(console.error)
    }
 
   return (
