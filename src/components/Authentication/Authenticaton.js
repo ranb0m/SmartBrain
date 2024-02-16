@@ -24,7 +24,7 @@ export default function Authentication({ onRouteChange, route, loadUser }) {
   }
 
   const onRegister = () => {
-    fetch('http://localhost:3000/register', {
+    fetch('https://smartbrain-api-d3840a985cb2.herokuapp.com/register', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -46,7 +46,7 @@ export default function Authentication({ onRouteChange, route, loadUser }) {
   }
   
    const onSignin = () => {
-      fetch('http://localhost:3000/signin', {
+      fetch('https://smartbrain-api-d3840a985cb2.herokuapp.com/signin', {
         method: "post",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
