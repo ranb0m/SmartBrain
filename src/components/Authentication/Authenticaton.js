@@ -106,7 +106,6 @@ export default function Authentication({ onRouteChange, route, loadUser }) {
           </fieldset>
           <div className="">
             <input 
-                   disabled={name.length === 0 || email.length === 0 || password.length <= 6}
                    className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
                    type="submit"
                    value={route ==='sign-in' ? "Sign in" : "Register"}
