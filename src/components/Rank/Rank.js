@@ -7,7 +7,7 @@ export default function Rank({ user }) {
             {`${user.name}'s entry count is ${user.entries}`}
         </div>
         <div className="center">
-            {'#1'}
+            You have the #{user.rank} most detected faces!
         </div>
         </>
     )

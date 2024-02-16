@@ -54,22 +54,18 @@ function App() {
   const [boxes, setBoxes] = useState([])
   const [route, setRoute] = useState('sign-in')
   const [user, setUser] = useState({
-    id: '',
     name: '',
     email: '',
-    password: '',
     entries: 0,
     joined: ''
   })
 
   const loadUser = (data) => {
     setUser({
-      id: data.id,
       name: data.name,
       email: data.email,
-      password: data.password,
       entries: data.entries,
-      joined: data.joined
+      rank: data.rank
     });
   }
 
@@ -106,12 +102,13 @@ function App() {
     fetch("https://api.clarifai.com/v2/models/" + 'face-detection' + "/outputs", initializeClarifaiRequestOptions(detectUrl))
         .then(response => response.json())
         .then(resp => {
+          console.log(resp)
           if (resp) {
             fetch("http://localhost:3000/image", {
               method: "put",
               headers: {'Content-Type': "application/json"},
               body: JSON.stringify({
-                id: user.id
+                email: user.email
               })
             })
             .then(response => response.json())

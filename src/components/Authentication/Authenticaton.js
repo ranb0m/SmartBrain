@@ -57,6 +57,7 @@ export default function Authentication({ onRouteChange, route, loadUser }) {
       })
       .then(response => response.json())
       .then(data => {
+        console.log("data: ", data)
         if (data !== 'error logging in') {
           loadUser(data);
           onRouteChange('home');
